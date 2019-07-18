@@ -1,0 +1,43 @@
+{%extends 'base.html'%}
+{%laod crispy_forms_tags%}
+{%block title%}{{post.title}}{%endblock%}
+{%block extrahead%}
+{%endblock%}
+{%block content%}
+<div class="container">
+  <div class="jumbotron">
+    <div class="">
+      {%if post.cover%}
+      <img src={{post.cover.url}}></img>
+      {%endif%}
+    </div>
+    <div class="">
+      <h2 class="display-4">{{post.title}}</h2>
+      <p class="">{{post.content|safe}}</p>
+    </div>
+  </div>
+  <hr>
+  <div>
+    {%for comment in post.comments.all%}
+    <div>
+      <p>{{comment.author}}</p>
+      <p>{{comment.text}}</p>
+    </div>
+    {%endfor%}
+  </div>
+  <hr>
+  <br>
+  {%if commented%}
+    <div class="alert alert-success">
+      Has comentado!
+    </div>
+  {%endif%}
+  <form action="" method="POST">
+    {%csrf_token%}
+    {{form}}
+    <button type="submit">Guardar</button>
+  </form>
+</div>
+{%endblock%}
+{%block js%}
+{%endblock%}
